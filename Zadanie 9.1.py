@@ -63,7 +63,7 @@ class SingleList:
         node.next = None  # czyszczenie łącza
         self.length -= 1
         return self
-          # klasy O(n)
+        
 
     # Zwraca cały węzeł, skraca listę.
     # Dla pustej listy rzuca wyjątek ValueError.
