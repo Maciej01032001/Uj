@@ -1,0 +1,1 @@
+{"Pulp Fiction": ["Quentin Tarantino", 1994], "Pewnego razu... w Hollywood": ["Quentin Tarantino", 2019], "Wsciekle psy": ["Quentin Tarantino", 1992], "Django": ["Quentin Tarantino", 2012], "Szczeki": ["Steven Spielberg", 1975], "Monachium": ["Steven Spielberg", 2005], "Wojna Swiatow": ["Steven Spielberg", 2005], "Szeregowiec Ryan": ["Steven Spielberg", 1998]}
