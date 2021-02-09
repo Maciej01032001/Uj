@@ -1,0 +1,106 @@
+Program pe³ni funkcje bazy danych filmów, zawieraj¹cych dane o;
+tytule, re¿yserze oraz dacie premiery
+
+1. Instrukcja obs³ugi:
+Przy uruchomieniu programu, na ekranie pojawiaj¹ siê nastepuj¹ce opcje:
+
+Dodaj film (0), Usun film (1), Znajdz film (2),
+Wypisz alfabetycznie (3), Wypisz wedlug premiery (4),
+Wyswietl filmy z danych lat (5), Wyswietl filmy danego rezysera (6),
+Zakoncz dzialanie (7)
+
+Oraz proœba o wybranie jednej z nich,wyboru dokonuje siê przez wprowadzenie cyfry przy nazwie polecenia
+np. jeœli chcemy wybraæ "Dodaj film (0)" nale¿y wpisaæ "0".
+Po wybraniu któregokolwiek z poleceñ, poza "Zakoncz dzialanie (7)" pojawia siê mo¿liwoœæ ponownego
+podjêcia wyboru.
+
+Program korzysta z pliku "test.txt" wprodzanie w nim bezpoœrednio zmian 
+mo¿e zak³óciæ dzia³anie programu.
+
+Dodaj film (0) pozwala u¿ytkownikowi na dodanie filmu do bazy danych.
+Program nastêpnie zapyta o tytu³, re¿ysera oraz date premiery, po czym doda film o takich danych
+do bazy.
+
+Usun film (1) pozwala u¿ytkownikowi na usuniêcie danego filmu z bazy danych.
+Program prosi o podanie tytu³u, jesli dany film znajduje siê w bazie zostanie z niej usuniêty,
+jeœli nie to pojawi siê stosowny komunikat.
+
+Znajdz film (2) pozwala u¿ytkownikowi na znalezienie danego filmu, program zapyta o tytu³ jednak,
+mo¿na wprowadzic sam jego fragment w tym przypadku zostan¹ wypisanewszystkie filmy z tym fragmentem
+tytu³u np. po wprowadzeniu "P" program wypisze;
+Pulp Fiction
+Pewnego razu... w Hollywood
+Park Jurajski wraz
+wraz z re¿yserami oraz dat¹ premiery.
+
+Wypisz alfabetycznie (3) pozwala u¿ytkownikowi na wypisanie wszystkich filmów znajduj¹cych siê w
+bazie danych, w porz¹dku alfabetycznym.
+
+Wypisz wedlug premiery (4) pozwala u¿ytkownikowi na wypisanie wszystkich filmów znajduj¹cych siê w
+bazie danych, w porz¹dku wed³ug daty premiery.
+
+Wyswietl filmy z danych lat (5) pozwala u¿ytkownikowi na wypisanie filmów, które mia³y premiere
+pomiêdzy dwoma datami. Program zapyta najpierw od jakich lat interesuj¹ nas film, a nastêpnie
+do jakich.
+
+Wyswietl filmy danego rezysera (6) pozwala u¿ytkownikowi na wypisanie filmów danego re¿ysera.
+Podobnie ajk przy wyszukiwaniu filmu wystarczy wpisaæ fragment Nazwiska lub Imienia i tak samo
+jak tam jeœli dany fragment wystepujê w "nazwach" ró¿nych re¿yserów wypisze filmy i jednego i drugiego.
+Mo¿e np. wypisaæ filmy wszystkich Stevenów.
+
+Zakoncz dzialanie (7) pozwala u¿ytkownikowi na zakoñczenie pracy programu i wy³¹czenie go.
+
+2. Budowa programu:
+
+Program wymaga zaimplementowania biblioteki json
+
+Program sk³ada siê klasy Database, która zawiera funkcje spe³niaj¹ce za³o¿onia programu:
+podane w opcjach dla u¿ytkownika:
+Dodaj film (0), Usun film (1), Znajdz film (2),
+Wypisz alfabetycznie (3), Wypisz wedlug premiery (4),
+Wyswietl filmy z danych lat (5), Wyswietl filmy danego rezysera (6),
+Zakoncz dzialanie (7)
+
+Na pocz¹tku klasy do zmiennej dictionary ³aduj¹ siê dane z pliku "test.txt" za pomoc¹:
+ with open('test.txt') as f:
+        dictionary = json.load(f)
+
+Dzia³anie poszczególnych funkcji:
+
+- Meni(self) (funkcja ta pozwala u¿ytkownikowi na wybieranie innych funkcji)
+Wypisuje mo¿liwoœci dla u¿ytkownika oraz przyjmuje wartoœci zmiennej answer, która pocz¹tkowo ustawiona jest na 8.
+Je¿eli u¿ytkownik ustawi wartoœæ answer na jedn¹ z podanych (1-7) zostaje uruchomiona jedna z pozosta³ych funkcji oraz
+ponownie wypisywane s¹ mo¿liwoœc i istnieje mo¿liwoœæ zmiany wartoœci zmiennej answer, z wyj¹tkiem 7,
+ w tym przypadku program koñczy dzia³anie a pêtla zostaje przerwana.
+
+- Wypisz_alfabetycznie(self) (funkcja pozwala na alfabetyczne wypisanie filmów na ekran)
+Tworzy listê do której importuje danê z dictionary, nastêpnie j¹ sortuje oraz wypisuje filmy wraz z ich danymi,
+ju¿ w kolejnoœci alfabetycznej.
+
+- Dodaj_film(self) (funkcja pozwala na dodanie filmu)
+Prosi o dane dotycz¹ce, tytu³u, re¿ysera i daty premiery, nastêpnie dodaje wpis o takich danych do s³ownika dictionary i
+zapisuje go spowrotem do pliku "test.txt"
+
+- Usun_film(self) (funkcja usuwa film)
+Szuka filmu o podanym tytule, je¿eli danego filmu nie ma w bazie podaje stosowna informacje,
+jeœli jest film jest usuwanym za pomoc¹ POP.
+
+-Znajdz_film(self) (funkcja wyszukuje wybrany film)
+Prosi o podanie tytulu (wystarczy fragment), a nastepnie sprawdza czy wpisana fraza wystêpuje
+w tytule któregoœ z filmów, je¿eli wystepuje wiecej niz w jednym zostanie wypisanych wiecej filmów wraz z ich danymi.
+Je¿eli dana fraza nie wystepuje w ¿adnym z filmów podana zostanie stosowna informacja
+
+- Wyswietl_po_roku(self): (pozwala wyœwietliæ filmy z danego przedzia³u czasowego)
+Pyta o lata od do, a nastêpnie w oparciu o to filtruje on dane z dictionary i umieszcza je w nowej liœcie.
+Ta lista jest sortowana wed³ug dat, a nastêpnie wypisana na ekran.
+
+- Wyswietl_po_rezyserze(self) (funkcja wyœwietla filmy danego re¿ysera)
+Pyta od danego re¿ysera (wystarczy fragment), a nastêpnie sprawdza dla ka¿dego wpisu w s³owniku czy wpisany fragment sprawdza siê z re¿yserem.
+Je¿eli to siê zgadza to powiekszane jest o 1, a film dodawany jest do nowej listy. Ta lista jest nastêpnie sortowana i wypisywana.
+Je¿eli a dalej wynosi 0 to pojawia siê informacja o tym, ¿e nie znaleziono takiego re¿ysera.
+
+- Wypisz_po_roku(self): (wypisuje filmy wed³ug daty wydania)
+Dodaje wszystkie wpisy ze s³ownika do nowej listy, nastêpnie ja sortuje wed³ug daty wydania i ju¿ posortowan¹ wypisuje na ekran.
+
+
+Program tworzy instancje test klasy Database i wywo³uje test.Meni. 
